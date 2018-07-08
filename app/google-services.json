@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "937217021072",
+    "firebase_url": "https://missingcrime-5098b.firebaseio.com",
+    "project_id": "missingcrime-5098b",
+    "storage_bucket": "missingcrime-5098b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937217021072:android:81c2d42520720d88",
+        "android_client_info": {
+          "package_name": "com.example.crime.missingcrime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937217021072-ecc2av8ntuodhacjucte76pk3cm2vfua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crime.missingcrime",
+            "certificate_hash": "15079072c8028eb6644581d991c2cfc10a04a112"
+          }
+        },
+        {
+          "client_id": "937217021072-stk3u8l6qm5am7vcrd8svhjkq950fap3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwO2bG5wzfPQpikdXeAuXD7JbyP7nZrNU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937217021072-stk3u8l6qm5am7vcrd8svhjkq950fap3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
