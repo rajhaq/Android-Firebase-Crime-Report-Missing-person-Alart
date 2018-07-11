@@ -1,7 +1,10 @@
 package com.example.crime.missingcrime;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +42,7 @@ public class SignInActivity extends AppCompatActivity {
         button();
         textview();
         edittext();
+        isInternetConnection();
     }
     void button()
     {
@@ -79,6 +83,7 @@ public class SignInActivity extends AppCompatActivity {
     void signin(){
         String sEmail=email.getText().toString().trim();
         String sPassword=password.getText().toString().trim();
+        Toast.makeText(this, sEmail+sPassword, Toast.LENGTH_SHORT).show();
         if(TextUtils.isEmpty(sEmail))
         {
             Toast.makeText(this,"Please Enter Email",Toast.LENGTH_SHORT).show();
@@ -111,5 +116,21 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
+    }
+    public void isInternetConnection()
+    {
+
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            connected = false;
+            Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
+        }
     }
 }

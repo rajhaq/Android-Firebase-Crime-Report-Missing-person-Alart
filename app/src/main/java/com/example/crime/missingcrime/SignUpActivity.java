@@ -101,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
         pBar.setTitle("User Signing up...");
         pBar.show();
         mAuth.createUserWithEmailAndPassword(sEmail,sPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
