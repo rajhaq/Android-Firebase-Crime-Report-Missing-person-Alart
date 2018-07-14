@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="Home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_add_crime"
+        android:title="Add report" />
+    <item
+        android:id="@+id/menu_profile"
+        android:title="Profile" />
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout" />
+
+</menu>
