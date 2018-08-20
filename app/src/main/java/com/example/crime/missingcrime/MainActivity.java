@@ -77,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentMapView = new Intent(this, MainActivity.class);
                 startActivity(intentMapView);
                 break;
+            case R.id.menu_add_crime:
+                Intent intentAddCrime = new Intent(this, AddReportActivity.class);
+                startActivity(intentAddCrime);
+                break;
+            case R.id.menu_report_list:
+                Intent intentReportList = new Intent(this, ReportsActivity.class);
+                startActivity(intentReportList);
+                break;
 
             case R.id.menu_logout:
                 if(isServicesOK()){
