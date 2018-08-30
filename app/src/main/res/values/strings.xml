@@ -15,4 +15,13 @@
         completions."
     </string>
     <string name="title_activity_maps">Map</string>
+    <string-array name="type">
+        <item>Murder</item>
+        <item>Robbery</item>
+        <item>Aggravated Assult</item>
+        <item>Burglary</item>
+        <item>Vehicle Thefe</item>
+        <item>Thefe</item>
+        <item>Rape</item>
+    </string-array>
 </resources>

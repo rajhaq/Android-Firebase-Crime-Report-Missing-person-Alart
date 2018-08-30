@@ -114,6 +114,11 @@
                 android:text="" />
 
 
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/textViewsalary"
                 android:layout_width="match_parent"
