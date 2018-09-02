@@ -55,7 +55,10 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".AddReportActivity" />
         <activity android:name=".ReportsActivity" />
-        <activity android:name=".ReportViewActivity"></activity>
+        <activity android:name=".ReportViewActivity" />
+        <activity android:name=".ApproveActivity" />
+        <activity android:name=".MyReportActivity" />
+        <activity android:name=".ApproveViewActivity"></activity>
     </application>
 
 </manifest>

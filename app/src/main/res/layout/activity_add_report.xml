@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AddReportActivity"
     android:background="@color/colorPrimary">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -29,13 +30,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -106,14 +106,6 @@
                 android:layout_marginTop="10dp"
                 android:text="Type of Crime" />
 
-            <EditText
-                android:id="@+id/editTextType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:text="" />
-
-
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
@@ -147,6 +139,7 @@
 
 
         </LinearLayout>
+
 
 
     </ScrollView>

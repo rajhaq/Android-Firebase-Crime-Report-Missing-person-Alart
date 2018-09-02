@@ -1,12 +1,12 @@
 package com.example.crime.missingcrime.Model;
 
 public class ReportModel {
-    String id, title, type, location, image, time, user_id;
+    String id, title, type, location, image, time, user_id, status;
 
     public ReportModel() {
     }
 
-    public ReportModel(String id, String title, String type, String location, String image, String time, String user_id) {
+    public ReportModel(String id, String title, String type, String location, String image, String time, String user_id, String status) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -14,6 +14,7 @@ public class ReportModel {
         this.image = image;
         this.time = time;
         this.user_id = user_id;
+        this.status = status;
     }
 
     public String getId() {
@@ -70,5 +71,13 @@ public class ReportModel {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

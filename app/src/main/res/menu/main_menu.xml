@@ -22,6 +22,9 @@
         android:id="@+id/menu_profile"
         android:title="Profile" />
     <item
+        android:id="@+id/menu_approve"
+        android:title="Approve List" />
+    <item
         android:id="@+id/menu_logout"
         android:title="Logout" />
 

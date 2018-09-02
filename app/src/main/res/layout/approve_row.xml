@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/textViewJobTitle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_toEndOf="@+id/imageViewRow"
+            android:layout_toRightOf="@+id/imageViewRow"
+            android:text="Title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewJobTitle"
+            android:layout_toEndOf="@+id/imageViewRow"
+            android:layout_toRightOf="@+id/imageViewRow"
+            android:text="Number: " />
+
+        <TextView
+            android:id="@+id/textViewEdu"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textViewJobTitle"
+            android:layout_toEndOf="@+id/textView6"
+            android:text=""
+            android:layout_toRightOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewEdu"
+            android:layout_toEndOf="@+id/imageViewRow"
+            android:layout_toRightOf="@+id/imageViewRow"
+            android:text="Email: " />
+
+        <TextView
+            android:id="@+id/textViewExp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textViewEdu"
+            android:text=""
+            android:textStyle="italic"
+            android:layout_alignLeft="@+id/textViewEdu"
+            android:layout_alignStart="@+id/textViewEdu" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

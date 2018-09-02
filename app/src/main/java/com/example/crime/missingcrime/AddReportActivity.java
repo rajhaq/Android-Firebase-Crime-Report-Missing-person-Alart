@@ -40,6 +40,7 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
     private FirebaseStorage storage;
     private ImageButton imageUpload;
     public String image;
+    public String typeOfCrime;
     ImageView report;
     private static final int GALLERY_INTENT=2;
 
@@ -67,6 +68,7 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
         });
         button();
         edittext();
+        spinner();
     }
     void button()
     {
@@ -92,12 +94,12 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
         report.setTitle(title.getText().toString());
         report.setLocation(location.getText().toString());
         report.setTime(time.getText().toString());
-        report.setType(type.getText().toString());
+        report.setType(typeOfCrime);
         report.setImage(image);
         report.setUser_id(userId);
         firebase.setValue(report);
         pBar.dismiss();
-        spinner();
+
 
     }
 
@@ -138,12 +140,13 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.type,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemClickListener(this);
+        spinner.setOnItemSelectedListener(this);
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        typeOfCrime=parent.getItemAtPosition(position).toString();
         Toast.makeText(this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
     }
 

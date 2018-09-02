@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentReportList = new Intent(this, ReportsActivity.class);
                 startActivity(intentReportList);
                 break;
+                case R.id.menu_approve:
+                Intent intentApprove = new Intent(this, ApproveActivity.class);
+                startActivity(intentApprove);
+                break;
 
             case R.id.menu_logout:
                 if(isServicesOK()){
