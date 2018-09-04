@@ -33,7 +33,7 @@ public class ApproveActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("reports");
-        click();
+//        click();
     }
     protected void onStart() {
         super.onStart();
@@ -116,10 +116,10 @@ public class ApproveActivity extends AppCompatActivity {
 
 
     }
-    void click()
-    {
-        final DatabaseReference color = database.getReference().child("bookinglist").child(post_key).child("color");
-        color.setValue("RED");
-
-    }
+//    void click()
+//    {
+//        final DatabaseReference color = database.getReference().child("reports").child(post_key).child("status");
+//        color.setValue("RED");
+//
+//    }
 }

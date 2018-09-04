@@ -28,7 +28,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class AddReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private EditText title,location,type,time;
+    private EditText title,location,time;
     private Button add;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -106,7 +106,6 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
     void edittext(){
         title=(EditText)findViewById(R.id.editTextTitle);
         location=(EditText)findViewById(R.id.editTextLocation);
-        type=(EditText)findViewById(R.id.editTextType);
         time=(EditText)findViewById(R.id.editTextTime);
 
     }

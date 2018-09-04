@@ -19,6 +19,9 @@
         android:id="@+id/menu_report_list"
         android:title="Report List" />
     <item
+        android:id="@+id/menu_my_report_list"
+        android:title="My Reports" />
+    <item
         android:id="@+id/menu_profile"
         android:title="Profile" />
     <item
