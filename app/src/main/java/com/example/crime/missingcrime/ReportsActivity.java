@@ -9,17 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
@@ -42,7 +38,7 @@ public class ReportsActivity extends AppCompatActivity {
     private EditText search;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference mRef;
+    private Query mRef;
     ArrayList<String> key;
     ArrayList<String> range;
     ArrayList<String> location;
@@ -73,7 +69,8 @@ public class ReportsActivity extends AppCompatActivity {
         JobList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        mRef = database.getReference().child("reports");
+        mRef = database.getReference().child("reports").orderByChild("status").equalTo("1");
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -193,8 +190,9 @@ public class ReportsActivity extends AppCompatActivity {
             protected void populateViewHolder(ReportViewHolder viewHolder, ReportModel model, int position) {
                 final String post_key=getRef(position).getKey();
                 viewHolder.setTitle(model.getTitle());
-                viewHolder.setPrice(model.getLocation());
-                viewHolder.setEmail(model.getType());
+                viewHolder.setLocation(model.getLocation());
+                viewHolder.setType(model.getType());
+                viewHolder.setPostTime(model.getPostTime());
                 viewHolder.setImage(model.getImage());
 //                viewHolder.mView.setOnLongClickListener(new View.OnLongClickListener() {
 //                    @Override
@@ -239,17 +237,22 @@ public class ReportsActivity extends AppCompatActivity {
                     .centerCrop()
                     .into(image);
         }
-        public void setPrice(String edu)
+        public void setLocation(String edu)
         {
-            TextView hotelPrice=(TextView)mView.findViewById(R.id.textViewEdu);
+            TextView hotelPrice=(TextView)mView.findViewById(R.id.textViewLocation);
             hotelPrice.setText(edu);
 
         }
-        public void setEmail(String exp)
+        public void setType(String exp)
         {
-            TextView hotelEmail=(TextView)mView.findViewById(R.id.textViewExp);
+            TextView hotelEmail=(TextView)mView.findViewById(R.id.textViewType);
             hotelEmail.setText(exp);
 
+        }
+        public void setPostTime(String time)
+        {
+            TextView postTime=(TextView)mView.findViewById(R.id.textViewPostTime);
+            postTime.setText(time);
         }
 
 

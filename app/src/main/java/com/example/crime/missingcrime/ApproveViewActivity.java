@@ -3,10 +3,12 @@ package com.example.crime.missingcrime;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.crime.missingcrime.Model.ReportModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +24,7 @@ public class ApproveViewActivity extends AppCompatActivity {
     private static final String MY_PERMISSIONS_REQUEST_READ_CONTACTS =null;
     NumberPicker singleNumber,dualNumber,dulexNumber;
     public ReportModel reportModel;
-    Button booking;
+    Button approve,remove;
     public TextView title, location,type, time;
     public ImageView logo;
     public FirebaseDatabase database;
@@ -32,7 +34,7 @@ public class ApproveViewActivity extends AppCompatActivity {
     public static String profileId;
     public static String hotelID;
     public static String profileMail;
-
+    public String tmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,7 @@ public class ApproveViewActivity extends AppCompatActivity {
         textview();
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        String tmp = extras.getString("id");
+        tmp = extras.getString("id");
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         profileId = user.getUid();
@@ -48,11 +50,9 @@ public class ApproveViewActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         DatabaseReference deleteDB = database.getReference().child("reports").child(tmp);
         final ImageView profilePicture = (ImageView) findViewById(R.id.imageViewPro);
+        button();
         reportModel = new ReportModel();
         reportModel.setUser_id(tmp);
-/*        name.setText(userModel.getFirstName());
-        status.setText(userModel.getStatus());
-        email.setText(userModel.getEmail());*/
         deleteDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -94,5 +94,28 @@ public class ApproveViewActivity extends AppCompatActivity {
         type = (TextView) findViewById(R.id.textViewType);
         location = (TextView) findViewById(R.id.textViewLocation);
         time = (TextView) findViewById(R.id.textViewTime);
+    }
+    public void button()
+    {
+        remove=(Button)findViewById(R.id.buttonRemove);
+        approve=(Button)findViewById(R.id.buttonApprove);
+        approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final DatabaseReference color = database.getReference().child("reports").child(tmp).child("status");
+                color.setValue("1");
+                Toast.makeText(ApproveViewActivity.this, "Approved", Toast.LENGTH_SHORT).show();
+            }
+        });
+        remove.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                final DatabaseReference remove = database.getReference().child("reports").child(tmp);
+                remove.removeValue();
+
+                Toast.makeText(ApproveViewActivity.this, "Removed", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 }

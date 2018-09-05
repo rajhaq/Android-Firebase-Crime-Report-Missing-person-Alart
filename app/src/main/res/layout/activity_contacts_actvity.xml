@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForgotPasswordActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".ContactsActvity">
+
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -20,15 +22,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.104">
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Enter Email to Reset Password"
+            android:text="Add Number"
             android:textAlignment="center"
             android:textSize="18sp" />
 
@@ -36,14 +37,13 @@
             android:id="@+id/editTextNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="60dp"
             android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:inputType="number" />
 
         <Button
-            android:id="@+id/buttonSend"
+            android:id="@+id/buttonAdd"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/editTextNumber"
@@ -51,8 +51,37 @@
             android:layout_margin="8dp"
             android:background="@color/colorSuccess"
             android:padding="8dp"
-            android:textSize="28dp"            android:text="Send Email"
-            android:textColor="@color/colorWhite" />
+            android:text="Add"
+            android:textColor="@color/colorWhite"
+            android:textSize="28dp" />
+
+        <ScrollView
+
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAdd"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewNumbers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Number Lists"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="162dp"
+                    tools:layout_editor_absoluteY="255dp" />
+            </LinearLayout>
+        </ScrollView>
 
     </RelativeLayout>
 
@@ -66,7 +95,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:padding="8dp"
-        android:text="Forgot Password?"
+        android:text="Energency Contacts"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"

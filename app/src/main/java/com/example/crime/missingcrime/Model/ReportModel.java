@@ -1,7 +1,7 @@
 package com.example.crime.missingcrime.Model;
 
 public class ReportModel {
-    String id, title, type, location, image, time, user_id, status;
+    String id, title, type, location, image, time, user_id, status,postTime;
 
     public ReportModel() {
     }
@@ -15,6 +15,14 @@ public class ReportModel {
         this.time = time;
         this.user_id = user_id;
         this.status = status;
+    }
+
+    public String getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(String postTime) {
+        this.postTime = postTime;
     }
 
     public String getId() {

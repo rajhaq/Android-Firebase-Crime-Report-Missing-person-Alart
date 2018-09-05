@@ -13,7 +13,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -58,7 +59,8 @@
         <activity android:name=".ReportViewActivity" />
         <activity android:name=".ApproveActivity" />
         <activity android:name=".MyReportActivity" />
-        <activity android:name=".ApproveViewActivity"></activity>
+        <activity android:name=".ApproveViewActivity" />
+        <activity android:name=".ContactsActvity"></activity>
     </application>
 
 </manifest>

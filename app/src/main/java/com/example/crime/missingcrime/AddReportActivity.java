@@ -27,6 +27,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class AddReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText title,location,time;
     private Button add;
@@ -87,6 +90,11 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
     }
     void addReport()
     {
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => "+c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(c.getTime());
         final DatabaseReference firebase = database.getReference().child("reports").push();
         String pushId = firebase.getKey();
         ReportModel report = new ReportModel();
@@ -97,6 +105,8 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
         report.setType(typeOfCrime);
         report.setImage(image);
         report.setUser_id(userId);
+        report.setStatus("");
+        report.setPostTime(formattedDate);
         firebase.setValue(report);
         pBar.dismiss();
 

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.crime.missingcrime.ReportsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,8 +31,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         public SearchViewHolder(View itemView) {
             super(itemView);
             jobTitle=(TextView)itemView.findViewById(R.id.textViewJobTitle);
-            jobEdu=(TextView)itemView.findViewById(R.id.textViewEdu);
-            jobExp=(TextView)itemView.findViewById(R.id.textViewExp);
+            jobEdu=(TextView)itemView.findViewById(R.id.textViewType);
+            jobExp=(TextView)itemView.findViewById(R.id.textViewLocation);
             ImageHotel=(ImageView)itemView.findViewById(R.id.imageViewRow);
 
         }

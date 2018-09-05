@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="124dp"
         android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/imageViewRow"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/googleg_standard_color_18" />
 
         <TextView
             android:id="@+id/textViewJobTitle"
@@ -23,41 +33,58 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewJobTitle"
             android:layout_toEndOf="@+id/imageViewRow"
+
             android:layout_toRightOf="@+id/imageViewRow"
-            android:text="Number: " />
+            android:padding="4dp"
+            android:text="Type: " />
 
         <TextView
-            android:id="@+id/textViewEdu"
+            android:id="@+id/textViewType"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewJobTitle"
-            android:layout_toEndOf="@+id/textView6"
+            android:layout_toEndOf="@+id/textView8"
+
+            android:layout_toRightOf="@+id/textView8"
+            android:padding="4dp"
             android:text=""
-            android:layout_toRightOf="@+id/textView6" />
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewEdu"
+            android:layout_below="@+id/textViewType"
             android:layout_toEndOf="@+id/imageViewRow"
             android:layout_toRightOf="@+id/imageViewRow"
-            android:text="Email: " />
+
+            android:padding="4dp"
+            android:text="Location: " />
 
         <TextView
-            android:id="@+id/textViewExp"
+            android:id="@+id/textViewLocation"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="22dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textViewEdu"
+            android:layout_below="@+id/textViewType"
+            android:layout_toRightOf="@+id/textView8"
+
+            android:padding="4dp"
             android:text=""
-            android:textStyle="italic"
-            android:layout_alignLeft="@+id/textViewEdu"
-            android:layout_alignStart="@+id/textViewEdu" />
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/textViewStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageViewRow"
+            android:layout_alignParentEnd="true"
+            android:padding="4dp"
+            android:text="Approval Status" />
+
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

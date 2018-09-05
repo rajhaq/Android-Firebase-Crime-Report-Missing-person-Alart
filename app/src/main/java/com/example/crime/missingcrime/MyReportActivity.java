@@ -24,8 +24,8 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
@@ -36,7 +36,7 @@ public class MyReportActivity extends AppCompatActivity {
     private EditText search;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference mRef;
+    private Query mRef;
     ArrayList<String> key;
     ArrayList<String> range;
     ArrayList<String> location;
@@ -47,7 +47,7 @@ public class MyReportActivity extends AppCompatActivity {
     private static Context context;
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
-    private FirebaseRecyclerAdapter<ReportModel,MyReportActivity.ReportViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<ReportModel,ReportsActivity.ReportViewHolder> mFirebaseAdapter;
     private RecyclerView JobList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,8 @@ public class MyReportActivity extends AppCompatActivity {
         JobList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        mRef = database.getReference().child("reports");
+        mRef = database.getReference().child("reports").orderByChild("user_id").equalTo(mAuth.getCurrentUser().getUid());
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -174,20 +175,21 @@ public class MyReportActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseAdapter=new FirebaseRecyclerAdapter<ReportModel,MyReportActivity.ReportViewHolder>(
+        mFirebaseAdapter=new FirebaseRecyclerAdapter<ReportModel,ReportsActivity.ReportViewHolder>(
                 ReportModel.class,
                 R.layout.report_items,
-                MyReportActivity.ReportViewHolder.class,
+                ReportsActivity.ReportViewHolder.class,
                 mRef
 
         ){
 
             @Override
-            protected void populateViewHolder(MyReportActivity.ReportViewHolder viewHolder, ReportModel model, int position) {
+            protected void populateViewHolder(ReportsActivity.ReportViewHolder viewHolder, ReportModel model, int position) {
                 final String post_key=getRef(position).getKey();
                 viewHolder.setTitle(model.getTitle());
-                viewHolder.setPrice(model.getLocation());
-                viewHolder.setEmail(model.getType());
+                viewHolder.setLocation(model.getLocation());
+                viewHolder.setType(model.getType());
+                viewHolder.setPostTime(model.getPostTime());
                 viewHolder.setImage(model.getImage());
 //                viewHolder.mView.setOnLongClickListener(new View.OnLongClickListener() {
 //                    @Override
@@ -232,17 +234,22 @@ public class MyReportActivity extends AppCompatActivity {
                     .centerCrop()
                     .into(image);
         }
-        public void setPrice(String edu)
+        public void setLocation(String edu)
         {
-            TextView hotelPrice=(TextView)mView.findViewById(R.id.textViewEdu);
+            TextView hotelPrice=(TextView)mView.findViewById(R.id.textViewLocation);
             hotelPrice.setText(edu);
 
         }
-        public void setEmail(String exp)
+        public void setType(String exp)
         {
-            TextView hotelEmail=(TextView)mView.findViewById(R.id.textViewExp);
+            TextView hotelEmail=(TextView)mView.findViewById(R.id.textViewType);
             hotelEmail.setText(exp);
 
+        }
+        public void setPostTime(String time)
+        {
+            TextView postTime=(TextView)mView.findViewById(R.id.textViewPostTime);
+            postTime.setText(time);
         }
 
 

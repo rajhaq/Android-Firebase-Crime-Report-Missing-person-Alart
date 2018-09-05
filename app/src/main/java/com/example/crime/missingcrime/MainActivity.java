@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.SEND_SMS;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -87,8 +89,11 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity( browse );
                                 }
                             });
-                            Toast.makeText(MainActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
-                        }
+//                            Toast.makeText(MainActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
+                            String messageToSend = "Help Me!!"+"\n https://maps.google.com/?q="+lat+","+lang;
+                            String number = "01739216256";
+
+                            SmsManager.getDefault().sendTextMessage(number, null, messageToSend, null,null);                        }
 
                     }
                 });
@@ -142,11 +147,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentReportList = new Intent(this, ReportsActivity.class);
                 startActivity(intentReportList);
                 break;
-                case R.id.menu_approve:
+            case R.id.menu_approve:
                 Intent intentApprove = new Intent(this, ApproveActivity.class);
                 startActivity(intentApprove);
                 break;
-
+            case R.id.menu_contacts:
+                Intent intentContacts = new Intent(this, ContactsActvity.class);
+                startActivity(intentContacts);
+                break;
             case R.id.menu_logout:
                 if(isServicesOK()){
                     signOut();
@@ -166,5 +174,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void requestPermission(){
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+        ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, 1);
     }
 }

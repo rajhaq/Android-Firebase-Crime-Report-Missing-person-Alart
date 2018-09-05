@@ -22,8 +22,8 @@
         android:id="@+id/menu_my_report_list"
         android:title="My Reports" />
     <item
-        android:id="@+id/menu_profile"
-        android:title="Profile" />
+        android:id="@+id/menu_contacts"
+        android:title="Emergency Contacts" />
     <item
         android:id="@+id/menu_approve"
         android:title="Approve List" />

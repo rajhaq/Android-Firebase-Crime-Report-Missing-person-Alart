@@ -7,9 +7,10 @@
     android:layout_margin="4dp"
     android:elevation="2dp"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:layout_margin="8dp">
 
         <ImageView
@@ -36,40 +37,67 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewJobTitle"
             android:layout_toEndOf="@+id/imageViewRow"
+
             android:layout_toRightOf="@+id/imageViewRow"
+            android:padding="4dp"
             android:text="Type: " />
 
         <TextView
-            android:id="@+id/textViewEdu"
+            android:id="@+id/textViewType"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewJobTitle"
             android:layout_toEndOf="@+id/textView8"
+
             android:layout_toRightOf="@+id/textView8"
-            android:text="" />
+            android:padding="4dp"
+            android:text=""
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewEdu"
+            android:layout_below="@+id/textViewType"
             android:layout_toEndOf="@+id/imageViewRow"
             android:layout_toRightOf="@+id/imageViewRow"
+
+            android:padding="4dp"
             android:text="Location: " />
 
         <TextView
-            android:id="@+id/textViewExp"
+            android:id="@+id/textViewLocation"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="22dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textViewEdu"
+            android:layout_below="@+id/textViewType"
             android:layout_toRightOf="@+id/textView8"
+
+            android:padding="4dp"
             android:text=""
-            android:textStyle="italic" />
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageViewRow"
+            android:layout_alignParentEnd="true"
+            android:padding="4dp"
+            android:text="Posted On" />
+
+        <TextView
+            android:id="@+id/textViewPostTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/imageViewRow"
+            android:layout_marginTop="-2dp"
+            android:padding="4dp"
+            android:text="Time Date" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
