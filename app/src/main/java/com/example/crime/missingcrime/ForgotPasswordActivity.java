@@ -1,6 +1,7 @@
 package com.example.crime.missingcrime;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         pBar=new ProgressDialog(this);
@@ -63,5 +66,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     }
                 });
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (user != null) {
+            // User is signed in
+            Intent intentLogin= new Intent(this, MainActivity.class );
+            startActivity(intentLogin);
+
+        } else {
+        }
+    }
+
 
 }

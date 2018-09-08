@@ -56,6 +56,7 @@ public class ReportsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = getApplicationContext();
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

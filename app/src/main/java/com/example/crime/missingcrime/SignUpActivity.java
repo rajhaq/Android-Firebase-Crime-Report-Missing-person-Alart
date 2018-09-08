@@ -36,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         database=FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -115,6 +116,8 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent signup=new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(signup);
                             pBar.dismiss();
+                            finish();
+
                         }
                         else {
                             Toast.makeText(SignUpActivity.this,"Sorry, Please try again",Toast.LENGTH_LONG).show();

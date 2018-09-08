@@ -30,15 +30,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SignInActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".SignUpActivity"
+            android:parentActivityName=".SignInActivity"/>
+        <activity android:name=".ForgotPasswordActivity"
+            android:parentActivityName=".SignInActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -53,15 +50,24 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".AddReportActivity" />
-        <activity android:name=".ReportsActivity" />
-        <activity android:name=".ReportViewActivity" />
-        <activity android:name=".ApproveActivity" />
-        <activity android:name=".MyReportActivity" />
-        <activity android:name=".ApproveViewActivity" />
-        <activity android:name=".ContactsActvity" />
-        <activity android:name=".LunchActvity">
+            android:label="@string/title_activity_maps"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddReportActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ReportsActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ReportViewActivity"
+            android:parentActivityName=".ReportsActivity"/>
+        <activity android:name=".ApproveActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".MyReportActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ApproveViewActivity"
+            android:parentActivityName=".ApproveActivity"/>
+        <activity android:name=".ContactsActvity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".LunchActvity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

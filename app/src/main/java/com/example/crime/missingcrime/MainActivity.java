@@ -1,5 +1,6 @@
 package com.example.crime.missingcrime;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -19,12 +21,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.crime.missingcrime.Model.ReportModel;
 import com.example.crime.missingcrime.Model.UserModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.RECEIVE_SMS;
@@ -53,46 +56,22 @@ public class MainActivity extends AppCompatActivity {
     CardView add,list,myReports,emergency,sendSMS;
     private FusedLocationProviderClient client;
     private LocationManager locationManager;
-    private LocationListener listener;
+    private com.google.android.gms.location.LocationListener listener;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        requestPermission();
+        if(checkAndRequestPermissions()) {
+            // carry on the normal flow, as the case of  permissions  granted.
+        }
         textView = findViewById(R.id.location);
         database = FirebaseDatabase.getInstance();
-        DatabaseReference deleteDB = database.getReference().child("users").child(user.getUid());
         client = LocationServices.getFusedLocationProviderClient(this);
-        userModel = new UserModel();
-        userModel.setId(user.getUid());
         cardView();
-        deleteDB.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    dataSnapshot.getValue();
-                    userModel = dataSnapshot.getValue(UserModel.class);
-                    textView.setText(userModel.getName());
-                }
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-                /*
-                Map<String,String> map=dataSnapshot.getValue(Map.class);
-
-                name.setText(map.get("firstName"));
-                status.setText(map.get("status"));
-                email.setText(map.get("email"));
-*/
-
-
-        });
 
     }
 
@@ -101,6 +80,27 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if (user != null) {
             // User is signed in
+            userModel = new UserModel();
+            DatabaseReference userDB = database.getReference().child("users").child(user.getUid());
+            userModel.setId(user.getUid());
+            userDB.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        dataSnapshot.getValue();
+                        userModel = dataSnapshot.getValue(UserModel.class);
+                        textView.setText(userModel.getName());
+                        Toast.makeText(MainActivity.this, userModel.getName()+user.getUid(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
         } else {
             Intent intentLogin= new Intent(this, SignInActivity.class );
             startActivity(intentLogin);
@@ -247,31 +247,68 @@ public class MainActivity extends AppCompatActivity {
     }
     private void requestPermission(){
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
-        ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, 1);
-        ActivityCompat.requestPermissions(this, new String[]{RECEIVE_SMS}, 1);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+
+// Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.SEND_SMS))
+            {
+
+                Toast.makeText(getBaseContext(),
+                        "App requires permission to send SMS",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            else
+            {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        1);
+
+            }
+        }    }
+    private  boolean checkAndRequestPermissions() {
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS);
+        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
     }
     public void addReport()
     {
         Intent intentAddCrime = new Intent(this, AddReportActivity.class);
         startActivity(intentAddCrime);
-        finish();
     }
     public void reportList()
     {
         Intent intentReportList = new Intent(this, ReportsActivity.class);
         startActivity(intentReportList);
-        finish();
     }
     public void myReport()
     {
         Intent myReports = new Intent(this, MyReportActivity.class);
         startActivity(myReports);
-        finish();
     }
     public void emergencyContact()
     {
         Intent intentContacts = new Intent(this, ContactsActvity.class);
         startActivity(intentContacts);
-        finish();
     }
 }

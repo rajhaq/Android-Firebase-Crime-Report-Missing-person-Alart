@@ -39,6 +39,7 @@ public class ApproveViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_view);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textview();
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

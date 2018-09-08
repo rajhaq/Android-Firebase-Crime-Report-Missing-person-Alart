@@ -34,6 +34,7 @@ public class ApproveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = getApplicationContext();
         JobList = (RecyclerView) findViewById(R.id.approveView);
         JobList.setHasFixedSize(true);

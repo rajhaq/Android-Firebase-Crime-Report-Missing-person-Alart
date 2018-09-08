@@ -51,6 +51,7 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         database=FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();

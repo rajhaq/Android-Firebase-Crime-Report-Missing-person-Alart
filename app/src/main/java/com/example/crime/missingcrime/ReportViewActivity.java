@@ -37,6 +37,7 @@ public class ReportViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_view);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textview();
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
