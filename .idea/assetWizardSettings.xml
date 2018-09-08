@@ -36,7 +36,6 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="fontFamily" value="A Love of Thunder" />
                                                 <entry key="text" value="MC" />
                                               </map>
                                             </option>
@@ -48,7 +47,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="005ba6" />
+                                      <entry key="backgroundColor" value="a6a242" />
                                       <entry key="foregroundAssetType" value="TEXT" />
                                     </map>
                                   </option>

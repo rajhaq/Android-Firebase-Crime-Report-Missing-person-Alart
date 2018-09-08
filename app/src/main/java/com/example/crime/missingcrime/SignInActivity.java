@@ -46,8 +46,8 @@ public class SignInActivity extends AppCompatActivity {
     }
     void button()
     {
-        signUp=(Button)findViewById(R.id.buttonLoginSignup);
-        signIn=(Button)findViewById(R.id.buttonLogin);
+        signUp=(Button)findViewById(R.id.buttonLSignup);
+        signIn=(Button)findViewById(R.id.buttonLLogin);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +76,8 @@ public class SignInActivity extends AppCompatActivity {
 
     }
     void edittext(){
-        email=(EditText)findViewById(R.id.editLoginEmail);
-        password=(EditText)findViewById(R.id.editLoginPassword);
+        email=(EditText)findViewById(R.id.editTextLEmail);
+        password=(EditText)findViewById(R.id.editTextLPass);
 
     }
     void signin(){

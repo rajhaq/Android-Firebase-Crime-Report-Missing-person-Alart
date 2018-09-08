@@ -44,16 +44,27 @@
 
         <Button
             android:id="@+id/buttonAdd"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="150dp"
+            android:layout_height="63dp"
             android:layout_below="@+id/editTextNumber"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="8dp"
             android:background="@color/colorSuccess"
             android:padding="8dp"
+            android:layout_margin="8dp"
             android:text="Add"
             android:textColor="@color/colorWhite"
-            android:textSize="28dp" />
+            />
+
+        <Button
+            android:id="@+id/burronRemove"
+            android:layout_width="150dp"
+            android:layout_height="63dp"
+            android:layout_below="@+id/editTextNumber"
+            android:background="@color/colorDanger"
+            android:padding="8dp"
+            android:layout_margin="8dp"
+            android:layout_toEndOf="@+id/buttonAdd"
+            android:textColor="@color/colorWhite"
+            android:text="Remove" />
 
         <ScrollView
 

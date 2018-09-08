@@ -116,9 +116,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
         android:layout_alignParentStart="true"
         android:background="@color/colorDanger"
-        android:text="Remove"
+        android:text="Reject"
         android:textColor="@color/colorWhite" />
 
     <Button
@@ -127,6 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
         android:background="@color/colorSuccess"
         android:text="Approve"
         android:textColor="@color/colorWhite" />
