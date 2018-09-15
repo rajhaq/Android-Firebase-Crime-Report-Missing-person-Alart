@@ -17,11 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crime.missingcrime.Model.ReportModel;
+import com.example.crime.missingcrime.Model.UserModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -42,9 +46,9 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
     private StorageReference mStorage;
     private FirebaseStorage storage;
     private ImageButton imageUpload;
-    public String image;
-    public String typeOfCrime;
+    public String image,typeOfCrime, userName;
     ImageView report;
+    public UserModel userModel;
     private static final int GALLERY_INTENT=2;
 
     @Override
@@ -164,4 +168,5 @@ public class AddReportActivity extends AppCompatActivity implements AdapterView.
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

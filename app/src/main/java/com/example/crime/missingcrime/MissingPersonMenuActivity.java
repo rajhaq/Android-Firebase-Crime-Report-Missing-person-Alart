@@ -34,18 +34,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.RECEIVE_SMS;
-import static android.Manifest.permission.SEND_SMS;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+public class MissingPersonMenuActivity extends AppCompatActivity {
+    private static final String TAG = "MissingPersonMenuActivity";
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -53,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Button send;
     TextView textView;
     public FirebaseDatabase database;
-    CardView crimeGo,missingGo,logoutGo;
+    CardView add,list,myReports;
     private FusedLocationProviderClient client;
     private LocationManager locationManager;
     private com.google.android.gms.location.LocationListener listener;
@@ -61,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_missing_person_menu);
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(checkAndRequestPermissions()) {
@@ -71,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         client = LocationServices.getFusedLocationProviderClient(this);
         cardView();
-
-
     }
 
     @Override
@@ -80,27 +74,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if (user != null) {
             // User is signed in
-            userModel = new UserModel();
-            DatabaseReference userDB = database.getReference().child("users").child(user.getUid());
-            userModel.setId(user.getUid());
-            userDB.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        dataSnapshot.getValue();
-                        userModel = dataSnapshot.getValue(UserModel.class);
-                        textView.setText("Hello "+userModel.getName());
-                        Toast.makeText(MainActivity.this, userModel.getName()+user.getUid(), Toast.LENGTH_SHORT).show();
-                    }
 
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-
-            });
         } else {
             Intent intentLogin= new Intent(this, SignInActivity.class );
             startActivity(intentLogin);
@@ -108,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isServicesOK(){
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MissingPersonMenuActivity.this);
 
         if(available == ConnectionResult.SUCCESS){
             //everything is fine and the user can make map requests
@@ -118,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
             //an error occured but we can resolve it
             Toast.makeText(this, "isServicesOK: an error occured but we can fix it", Toast.LENGTH_SHORT).show();
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MissingPersonMenuActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         }else{
             Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
@@ -126,77 +100,40 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
 
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_home:
-                Intent intentMapView = new Intent(this, MainActivity.class);
-                startActivity(intentMapView);
-                break;
-
-            case R.id.menu_add_crime:
-                addReport();
-                break;
-            case R.id.menu_my_report_list:
-                myReport();
-                break;
-            case R.id.menu_report_list:
-                reportList();
-                break;
-            case R.id.menu_approve:
-                Intent intentApprove = new Intent(this, ApproveActivity.class);
-                startActivity(intentApprove);
-                break;
-            case R.id.menu_contacts:
-                emergencyContact();
-                break;
-            case R.id.menu_logout:
-                if(isServicesOK()){
-                    signOut();
-                }
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
     public void cardView()
     {
-        crimeGo=(CardView)findViewById(R.id.crimeGo);
-        missingGo=(CardView)findViewById(R.id.personGo);
-        logoutGo=(CardView)findViewById(R.id.logoutGo);
-;
+        add=(CardView)findViewById(R.id.addReport);
+        list=(CardView)findViewById(R.id.reportList);
+        myReports=(CardView)findViewById(R.id.myReports);
+
 //        on click
-        crimeGo.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crimeIntent();
+                addReport();
             }
         });
-        missingGo.setOnClickListener(new View.OnClickListener() {
+        list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                missingIntent();
+                reportList();
             }
         });
-        logoutGo.setOnClickListener(new View.OnClickListener() {
+        myReports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signOut();
+                myReport();
             }
         });
+
 
     }
 
     void signOut()
     {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+        Intent intent = new Intent(MissingPersonMenuActivity.this, SignInActivity.class);
         startActivity(intent);
         finish();
         return;
@@ -204,13 +141,13 @@ public class MainActivity extends AppCompatActivity {
     private void requestPermission(){
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS)
+                android.Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED)
         {
 
 // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.SEND_SMS))
+                    android.Manifest.permission.SEND_SMS))
             {
 
                 Toast.makeText(getBaseContext(),
@@ -225,18 +162,18 @@ public class MainActivity extends AppCompatActivity {
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.SEND_SMS},
+                        new String[]{android.Manifest.permission.SEND_SMS},
                         1);
 
             }
         }    }
     private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS);
-        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+                android.Manifest.permission.SEND_SMS);
+        int locationPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
         List<String> listPermissionsNeeded = new ArrayList<>();
         if (locationPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
@@ -266,16 +203,6 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intentContacts = new Intent(this, ContactsActvity.class);
         startActivity(intentContacts);
-    }
-    public void crimeIntent()
-    {
-        Intent crimeIntent = new Intent(this, MissingPersonMenuActivity.class);
-        startActivity(crimeIntent);
-    }
-    public void missingIntent()
-    {
-        Intent missingIntent = new Intent(this, ReportMenuActivity.class);
-        startActivity(missingIntent);
     }
 
 }

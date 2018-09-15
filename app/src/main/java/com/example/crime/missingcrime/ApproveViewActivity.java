@@ -111,8 +111,8 @@ public class ApproveViewActivity extends AppCompatActivity {
         remove.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                final DatabaseReference remove = database.getReference().child("reports").child(tmp);
-                remove.removeValue();
+                final DatabaseReference color = database.getReference().child("reports").child(tmp).child("status");
+                color.setValue("");
 
                 Toast.makeText(ApproveViewActivity.this, "Removed", Toast.LENGTH_SHORT).show();
                 return false;

@@ -9,6 +9,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.crime.missingcrime.Model.ReportModel;
+import com.example.crime.missingcrime.Model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,18 +21,15 @@ import com.squareup.picasso.Picasso;
 
 public class ReportViewActivity extends AppCompatActivity {
     private static final String MY_PERMISSIONS_REQUEST_READ_CONTACTS =null;
-    NumberPicker singleNumber,dualNumber,dulexNumber;
     public ReportModel reportModel;
     Button booking;
-    public TextView title, location,type, time;
+    public TextView title, location,type, time,posted,postedByName;
     public ImageView logo;
     public FirebaseDatabase database;
     public FirebaseAuth mAuth;
     private FirebaseUser user;
-
-    public static String profileId;
-    public static String hotelID;
-    public static String profileMail;
+    public UserModel userModel;
+    public static String profileId,hotelID, profileMail,postedBy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +59,15 @@ public class ReportViewActivity extends AppCompatActivity {
                     dataSnapshot.getValue();
                     reportModel = dataSnapshot.getValue(ReportModel.class);
                     hotelID=reportModel.getId();
+                    posted.setText(reportModel.getPostTime());
                     title.setText(reportModel.getTitle());
                     type.setText(reportModel.getType());
                     time.setText(reportModel.getTime());
                     location.setText(reportModel.getLocation());
+                    postedByName.setText("Posted by: "+ getName(reportModel.getUser_id()));
                     Picasso.with(getApplicationContext())
                             .load(reportModel.getImage())
-                            .resize(500, 300)
+                            .resize(500, 360)
                             .centerCrop()
                             .into(profilePicture);
                 }
@@ -95,5 +95,32 @@ public class ReportViewActivity extends AppCompatActivity {
         type = (TextView) findViewById(R.id.textViewType);
         location = (TextView) findViewById(R.id.textViewLocation);
         time = (TextView) findViewById(R.id.textViewTime);
+        posted=(TextView)findViewById(R.id.textViewDate);
+        postedByName=(TextView)findViewById(R.id.textViewPostedBy);
+    }
+    public String getName(String id) {
+            userModel = new UserModel();
+            DatabaseReference userDB = database.getReference().child("users").child(id);
+            userModel.setId(id);
+            userDB.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        dataSnapshot.getValue();
+                        userModel = dataSnapshot.getValue(UserModel.class);
+                        postedBy=userModel.getName();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+            return postedBy;
+
+
     }
 }

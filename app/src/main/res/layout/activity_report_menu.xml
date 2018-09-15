@@ -8,21 +8,16 @@
     android:padding="10dp"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    tools:context=".MainActivity">
-
+    tools:context=".ReportMenuActivity">
 
     <TextView
         android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/radious_corner_white"
-        android:text="Hello Guest"
+        android:text="Preson Missing Menu"
         android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -37,21 +32,73 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/emergencyContacts"
+                    android:layout_width="340dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:padding="10dp"
+                            android:src="@drawable/iconcontacts" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Emergency Contacts"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="10dp"
+                            android:background="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="My emergency contacts for sms "
+                            android:textColor="@android:color/darker_gray" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.CardView
-
-                    android:id="@+id/crimeGo"
-                    android:layout_width="180dp"
+                    android:id="@+id/sendSMS"
+                    android:layout_width="340dp"
                     android:layout_height="180dp"
                     android:layout_margin="10dp"
-
                     android:clickable="true">
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -60,94 +107,35 @@
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:padding="4dp"
-                            android:src="@drawable/hackercolor" />
+                            android:padding="10dp"
+                            android:src="@drawable/iconemergency" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Crime Reports"
+                            android:text="Send Emergency SMS"
                             android:textStyle="bold" />
 
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/personGo"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:padding="4dp"
-                            android:src="@drawable/searchperson" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="10dp"
+                            android:background="@color/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Missing Person"
-                            android:textStyle="bold" />
-
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Pressing long click will send emergency sms to your emergency contacts"
+                            android:textColor="@android:color/darker_gray" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
-            </LinearLayout>
-
-
-
-    <LinearLayout
-        android:clipToPadding="false"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/logoutGo"
-            android:layout_width="340dp"
-            android:layout_height="160dp"
-            android:layout_margin="10dp"
-            android:clickable="true">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:padding="4dp"
-                    android:src="@drawable/exit_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Logout"
-                    android:textStyle="bold" />
-
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-
-    </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
