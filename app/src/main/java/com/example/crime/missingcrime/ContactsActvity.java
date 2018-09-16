@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 public class ContactsActvity extends AppCompatActivity {
 
     EditText number;
-    Button add;
+    Button add,remove;
     TextView textViewNumbers;
     DatabaseHelper myDb;
     @Override
@@ -26,24 +26,35 @@ public class ContactsActvity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
         innitial();
         viewAll();
+        DeleteData();
     }
 
     private void innitial() {
         number=(EditText)findViewById(R.id.editTextNumber);
         add=(Button) findViewById(R.id.buttonAdd);
+        remove=(Button) findViewById(R.id.burronRemove);
+
         textViewNumbers=(TextView)findViewById(R.id.textViewNumbers);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isInserted = myDb.insertData(number.getText().toString());
-                if(isInserted == true)
+                Cursor res = myDb.getAllData();
+                if(res.getCount()<6)
                 {
-                    Toast.makeText(ContactsActvity.this,"Data Inserted",Toast.LENGTH_LONG).show();
-                    viewAll();
-                }
+                    boolean isInserted = myDb.insertData(number.getText().toString());
+                    if(isInserted == true)
+                    {
+                        Toast.makeText(ContactsActvity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                        viewAll();
+                    }
 
+                    else
+                        Toast.makeText(ContactsActvity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+
+                }
                 else
-                    Toast.makeText(ContactsActvity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ContactsActvity.this,"Contacts are full, remove any number to add new",Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -65,5 +76,23 @@ public class ContactsActvity extends AppCompatActivity {
 
             // Show all data
 
+    }
+    public void DeleteData() {
+        remove.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Integer deletedRows = myDb.deleteData(number.getText().toString());
+                        if(deletedRows > 0)
+                        {
+                            Toast.makeText(ContactsActvity.this,"Data Deleted",Toast.LENGTH_LONG).show();
+                            viewAll();
+                        }
+
+                        else
+                            Toast.makeText(ContactsActvity.this,"Data not Deleted",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 }

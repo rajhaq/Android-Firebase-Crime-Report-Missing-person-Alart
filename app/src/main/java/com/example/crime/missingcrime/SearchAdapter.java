@@ -70,8 +70,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             public void onClick(View v) {
                 Bundle b=new Bundle();
                 b.putString("id",key_post );
-                Toast.makeText(context, key_post, Toast.LENGTH_SHORT).show();
-                Intent intentUserList = new Intent(context, ReportsActivity.class);
+                Toast.makeText(context, "From Search , ID:"+key_post, Toast.LENGTH_SHORT).show();
+                Intent intentUserList = new Intent(context, ReportViewActivity.class);
                 intentUserList.putExtras(b);
                 context.startActivity(intentUserList);
             }

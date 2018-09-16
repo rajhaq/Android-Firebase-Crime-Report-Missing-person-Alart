@@ -59,15 +59,16 @@ public class ReportViewActivity extends AppCompatActivity {
                     dataSnapshot.getValue();
                     reportModel = dataSnapshot.getValue(ReportModel.class);
                     hotelID=reportModel.getId();
-                    posted.setText(reportModel.getPostTime());
+                    posted.setText("Posted on: "+reportModel.getPostTime());
                     title.setText(reportModel.getTitle());
                     type.setText(reportModel.getType());
                     time.setText(reportModel.getTime());
                     location.setText(reportModel.getLocation());
-                    postedByName.setText("Posted by: "+ getName(reportModel.getUser_id()));
+                    getName(reportModel.getUser_id());
+                    postedByName.setText("Posted by: "+ postedBy);
                     Picasso.with(getApplicationContext())
                             .load(reportModel.getImage())
-                            .resize(500, 360)
+                            .resize(400, 400)
                             .centerCrop()
                             .into(profilePicture);
                 }
@@ -98,7 +99,7 @@ public class ReportViewActivity extends AppCompatActivity {
         posted=(TextView)findViewById(R.id.textViewDate);
         postedByName=(TextView)findViewById(R.id.textViewPostedBy);
     }
-    public String getName(String id) {
+    public void getName(String id) {
             userModel = new UserModel();
             DatabaseReference userDB = database.getReference().child("users").child(id);
             userModel.setId(id);
@@ -109,6 +110,7 @@ public class ReportViewActivity extends AppCompatActivity {
                         dataSnapshot.getValue();
                         userModel = dataSnapshot.getValue(UserModel.class);
                         postedBy=userModel.getName();
+
                     }
 
                 }
@@ -119,7 +121,6 @@ public class ReportViewActivity extends AppCompatActivity {
                 }
 
             });
-            return postedBy;
 
 
     }

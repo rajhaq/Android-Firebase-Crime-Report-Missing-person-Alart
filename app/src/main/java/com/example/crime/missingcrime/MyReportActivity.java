@@ -2,7 +2,9 @@ package com.example.crime.missingcrime;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +26,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -37,6 +40,7 @@ public class MyReportActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private Query mRef;
+    private DatabaseReference dbRef;
     ArrayList<String> key;
     ArrayList<String> range;
     ArrayList<String> location;
@@ -68,7 +72,7 @@ public class MyReportActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("reports").orderByChild("user_id").equalTo(mAuth.getCurrentUser().getUid());
-
+        dbRef=database.getReference().child("reports");
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -199,6 +203,24 @@ public class MyReportActivity extends AppCompatActivity {
 //                        return false;
 //                    }
 //                });
+
+                viewHolder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+//                        mRef.child(post_key).removeValue();
+                        new AlertDialog.Builder(MyReportActivity.this)
+                                .setTitle("Delete Report")
+                                .setMessage("Do you really want to delete this job?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dbRef.child(post_key).removeValue();
+                                    }})
+                                .setNegativeButton(android.R.string.no, null).show();
+                        return false;
+                    }
+                });
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

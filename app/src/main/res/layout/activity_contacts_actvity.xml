@@ -58,13 +58,12 @@
             android:id="@+id/burronRemove"
             android:layout_width="150dp"
             android:layout_height="63dp"
-            android:layout_below="@+id/editTextNumber"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_alignTop="@+id/buttonAdd"
             android:background="@color/colorDanger"
             android:padding="8dp"
-            android:layout_margin="8dp"
-            android:layout_toEndOf="@+id/buttonAdd"
-            android:textColor="@color/colorWhite"
-            android:text="Remove" />
+            android:text="Remove"
+            android:textColor="@color/colorWhite" />
 
         <ScrollView
 

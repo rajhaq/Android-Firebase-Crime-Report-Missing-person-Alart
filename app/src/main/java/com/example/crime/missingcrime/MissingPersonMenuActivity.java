@@ -58,6 +58,7 @@ public class MissingPersonMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_missing_person_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(checkAndRequestPermissions()) {

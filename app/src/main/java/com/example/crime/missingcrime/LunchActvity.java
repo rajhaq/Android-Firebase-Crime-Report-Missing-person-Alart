@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 
 public class LunchActvity extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 2000;

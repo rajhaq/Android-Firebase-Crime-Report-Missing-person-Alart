@@ -78,8 +78,7 @@
 
                     <android.support.v7.widget.CardView
 
-                        android:id="@+id/addReport"
-                        android:layout_width="180dp"
+                        android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="4dp"
                         android:clickable="true">
@@ -88,22 +87,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:background="@drawable/radious_corner"
+                            android:background="@color/colorPrimary"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:padding="4dp"
-                                android:src="@drawable/iconadd"
-                                app:srcCompat="@android:drawable/ic_dialog_map" />
+                                app:srcCompat="@drawable/iconmap" />
 
                             <TextView
                                 android:id="@+id/textViewLocation"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="Add Report"
+                                android:text="Location"
                                 android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
@@ -112,8 +110,7 @@
                     </android.support.v7.widget.CardView>
                     <android.support.v7.widget.CardView
 
-                        android:id="@+id/time"
-                        android:layout_width="180dp"
+                        android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="4dp"
                         android:clickable="true">
@@ -122,15 +119,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:background="@drawable/radious_corner"
+                            android:background="@color/colorPrimary"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:padding="4dp"
-                                android:src="@drawable/iconadd"
-                                app:srcCompat="@drawable/clock" />
+                                app:srcCompat="@drawable/iconclock" />
 
                             <TextView
                                 android:id="@+id/textViewTime"
@@ -157,7 +153,6 @@
                     android:layout_height="wrap_content">
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/sendSMS"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_margin="4dp"
@@ -168,16 +163,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:background="@drawable/radious_corner"
+                            android:background="@color/colorPrimary"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:padding="4dp"
-                                app:srcCompat="@drawable/cast_ic_notification_0" />
+                                app:srcCompat="@drawable/icontype" />
 
                             <TextView
+                                android:id="@+id/textViewType"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"

@@ -2,8 +2,10 @@ package com.example.crime.missingcrime;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.SEND_SMS;
 
 public class ReportMenuActivity extends AppCompatActivity {
     private static final String TAG = "ReportMenuActivity";
@@ -53,11 +56,19 @@ public class ReportMenuActivity extends AppCompatActivity {
     private FusedLocationProviderClient client;
     private LocationManager locationManager;
     private com.google.android.gms.location.LocationListener listener;
+    PendingIntent sentPI;
+    String SENT = "SMS_SENT";
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    SmsManager sms;
+
+//    db
+    DatabaseHelper myDb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        myDb = new DatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(checkAndRequestPermissions()) {
@@ -66,6 +77,8 @@ public class ReportMenuActivity extends AppCompatActivity {
         textView = findViewById(R.id.location);
         database = FirebaseDatabase.getInstance();
         client = LocationServices.getFusedLocationProviderClient(this);
+        sms = SmsManager.getDefault();
+        sentPI = PendingIntent.getBroadcast(this, 0,new Intent(SENT), 0);
         cardView();
     }
     @Override
@@ -114,7 +127,7 @@ public class ReportMenuActivity extends AppCompatActivity {
         sendSMS.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (ActivityCompat.checkSelfPermission(ReportMenuActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                if (ActivityCompat.checkSelfPermission(ReportMenuActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ReportMenuActivity.this, SEND_SMS) != PackageManager.PERMISSION_GRANTED ) {
 
                     return false;
                 }
@@ -126,21 +139,21 @@ public class ReportMenuActivity extends AppCompatActivity {
 
                             final float lat= (float) location.getLatitude();
                             final float lang= (float) location.getLongitude();
-                            textView.setText("Lattetude: "+lat+"Longitude:"+lang);
-                            textView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    String url="https://maps.google.com/?q="+lat+","+lang;
-                                    Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse( url ) );
-                                    startActivity( browse );
-                                }
-                            });
-//                            Toast.makeText(ReportMenuActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
                             String messageToSend = "Help Me!!"+"\n https://maps.google.com/?q="+lat+","+lang;
                             String number = "01739216256";
 
-                            Toast.makeText(ReportMenuActivity.this, "SMS send : "+messageToSend , Toast.LENGTH_SHORT).show();
-                            SmsManager.getDefault().sendTextMessage(number, null, messageToSend, null,null);                        }
+                            Cursor res = myDb.getAllData();
+                            if(res.getCount() == 0) {
+                                // show message
+                                Toast.makeText(ReportMenuActivity.this, "No Number Added", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            while (res.moveToNext()) {
+                                Toast.makeText(ReportMenuActivity.this, "SMS send : "+res.getString(1) , Toast.LENGTH_SHORT).show();
+                                sms.sendTextMessage(res.getString(1), null, messageToSend, sentPI,null);
+                            }
+
+                        }
 
                     }
                 });
@@ -162,13 +175,13 @@ public class ReportMenuActivity extends AppCompatActivity {
     private void requestPermission(){
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
         if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.SEND_SMS)
+                SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED)
         {
 
 // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.SEND_SMS))
+                    SEND_SMS))
             {
 
                 Toast.makeText(getBaseContext(),
@@ -183,21 +196,21 @@ public class ReportMenuActivity extends AppCompatActivity {
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.SEND_SMS},
+                        new String[]{SEND_SMS},
                         1);
 
             }
         }    }
     private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.SEND_SMS);
+                SEND_SMS);
         int locationPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
         List<String> listPermissionsNeeded = new ArrayList<>();
         if (locationPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
+            listPermissionsNeeded.add(SEND_SMS);
         }
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_MULTIPLE_PERMISSIONS);

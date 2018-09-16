@@ -1,6 +1,5 @@
 package com.example.crime.missingcrime;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +24,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -34,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ReportsActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
     private EditText search;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
@@ -49,13 +47,13 @@ public class ReportsActivity extends AppCompatActivity {
     private static Context context;
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
-    private FirebaseRecyclerAdapter<ReportModel,ReportViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<ReportModel,SearchActivity.ReportViewHolder> mFirebaseAdapter;
     private RecyclerView JobList;
-
+    String hotelsearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reports);
+        setContentView(R.layout.activity_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = getApplicationContext();
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
@@ -64,7 +62,9 @@ public class ReportsActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(false);
         searchView=(MaterialSearchView)findViewById(R.id.search_view);
         edittext();
-
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        hotelsearch = extras.getString("hotelsearch");
         JobList = (RecyclerView) findViewById(R.id.hotellist);
         JobList.setHasFixedSize(true);
         JobList.setLayoutManager(new LinearLayoutManager(this));
@@ -84,7 +84,7 @@ public class ReportsActivity extends AppCompatActivity {
 
     }
     public boolean isServicesOK(){
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(ReportsActivity.this);
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(SearchActivity.this);
 
         if(available == ConnectionResult.SUCCESS){
             //everything is fine and the user can make map requests
@@ -94,7 +94,7 @@ public class ReportsActivity extends AppCompatActivity {
         else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
             //an error occured but we can resolve it
             Toast.makeText(this, "isServicesOK: an error occured but we can fix it", Toast.LENGTH_SHORT).show();
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(ReportsActivity.this, available, ERROR_DIALOG_REQUEST);
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(SearchActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         }else{
             Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
@@ -126,7 +126,7 @@ public class ReportsActivity extends AppCompatActivity {
     void signOut()
     {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(ReportsActivity.this, SignInActivity.class);
+        Intent intent = new Intent(SearchActivity.this, SignInActivity.class);
         startActivity(intent);
         finish();
         return;
@@ -143,7 +143,7 @@ public class ReportsActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 if(!query.toString().isEmpty())
                 {
-                    setAdapter(query.toString());
+                    setAdapter(hotelsearch);
                 }
                 else
                 {
@@ -155,7 +155,7 @@ public class ReportsActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if(!newText.toString().isEmpty())
                 {
-                    setAdapter(newText.toString());
+                    setAdapter(hotelsearch);
                 }
                 else
                 {
@@ -183,16 +183,16 @@ public class ReportsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseAdapter=new FirebaseRecyclerAdapter<ReportModel,ReportViewHolder>(
+        mFirebaseAdapter=new FirebaseRecyclerAdapter<ReportModel,SearchActivity.ReportViewHolder>(
                 ReportModel.class,
                 R.layout.report_items,
-                ReportViewHolder.class,
+                SearchActivity.ReportViewHolder.class,
                 mRef
 
         ){
 
             @Override
-            protected void populateViewHolder(ReportViewHolder viewHolder, ReportModel model, int position) {
+            protected void populateViewHolder(SearchActivity.ReportViewHolder viewHolder, ReportModel model, int position) {
                 final String post_key=getRef(position).getKey();
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setLocation(model.getLocation());
@@ -211,7 +211,7 @@ public class ReportsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Bundle b=new Bundle();
                         b.putString("id", post_key);
-                        Intent intentUserList = new Intent(ReportsActivity.this, ReportViewActivity.class);
+                        Intent intentUserList = new Intent(SearchActivity.this, ReportViewActivity.class);
                         intentUserList.putExtras(b);
                         startActivity(intentUserList);
                     }
@@ -313,7 +313,7 @@ public class ReportsActivity extends AppCompatActivity {
                         break;
                 }
 
-                searchAdapter = new SearchAdapter(ReportsActivity.this, title, location,range,key,logoHotel);
+                searchAdapter = new SearchAdapter(SearchActivity.this, title, location,range,key,logoHotel);
                 JobList.setAdapter(searchAdapter);
             }
 

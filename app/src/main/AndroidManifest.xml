@@ -55,10 +55,10 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddReportActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MissingPersonMenuActivity" />
         <activity
             android:name=".ReportsActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MissingPersonMenuActivity" />
         <activity
             android:name=".ReportViewActivity"
             android:parentActivityName=".ReportsActivity" />
@@ -67,22 +67,29 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MyReportActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MissingPersonMenuActivity" />
         <activity
             android:name=".ApproveViewActivity"
             android:parentActivityName=".ApproveActivity" />
         <activity
             android:name=".ContactsActvity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".LunchActvity">
+            android:parentActivityName=".ReportMenuActivity" />
+        <activity
+            android:name=".LunchActvity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReportMenuActivity" />
-        <activity android:name=".MissingPersonMenuActivity"></activity>
+        <activity
+            android:name=".ReportMenuActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MissingPersonMenuActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
