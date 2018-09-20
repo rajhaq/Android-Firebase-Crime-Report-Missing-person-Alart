@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MissingCrime</string>
+    <string name="app_name">Missing Person Finder and Crime Report</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -23,5 +23,7 @@
         <item>Vehicle Thefe</item>
         <item>Thefe</item>
         <item>Rape</item>
+        <item>Complaine</item>
+        <item>Other</item>
     </string-array>
 </resources>

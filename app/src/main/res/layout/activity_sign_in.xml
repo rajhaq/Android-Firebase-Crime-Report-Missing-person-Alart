@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/crime" />
+        app:srcCompat="@drawable/mrclg" />
 
     <TextView
         android:id="@+id/textView"

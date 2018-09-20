@@ -88,7 +88,6 @@ public class SignInActivity extends AppCompatActivity {
     void signin(){
         String sEmail=email.getText().toString().trim();
         String sPassword=password.getText().toString().trim();
-        Toast.makeText(this, sEmail+sPassword, Toast.LENGTH_SHORT).show();
         if(TextUtils.isEmpty(sEmail))
         {
             Toast.makeText(this,"Please Enter Email",Toast.LENGTH_SHORT).show();
