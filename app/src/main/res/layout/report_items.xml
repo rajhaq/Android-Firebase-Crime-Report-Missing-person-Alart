@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
         <ImageView
@@ -45,7 +45,7 @@
         <TextView
             android:id="@+id/textViewType"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="28dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewJobTitle"
@@ -70,7 +70,7 @@
         <TextView
             android:id="@+id/textViewLocation"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="28dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewType"
@@ -84,8 +84,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageViewRow"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageViewRow"
+            android:layout_marginTop="-2dp"
             android:padding="4dp"
             android:text="Posted On" />
 
@@ -93,9 +94,9 @@
             android:id="@+id/textViewPostTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@+id/imageViewRow"
             android:layout_marginTop="-2dp"
+            android:layout_toEndOf="@+id/textView"
             android:padding="4dp"
             android:text="Time Date" />
 

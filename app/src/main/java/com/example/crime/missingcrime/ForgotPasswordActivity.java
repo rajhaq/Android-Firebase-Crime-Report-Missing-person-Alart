@@ -35,8 +35,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         pBar=new ProgressDialog(this);
-        button();
         edittext();
+        button();
+
     }
     void button()
     {
@@ -51,6 +52,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
     void edittext()
     {
+        email=(EditText)findViewById(R.id.editTextEmail);
 
     }
     void sendresetemail()

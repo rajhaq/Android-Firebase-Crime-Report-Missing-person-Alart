@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="124dp"
+        android:layout_height="130dp"
         android:layout_margin="8dp">
 
         <ImageView
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/textViewType"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="26dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewJobTitle"
@@ -66,7 +66,7 @@
         <TextView
             android:id="@+id/textViewLocation"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="26dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewType"
@@ -80,7 +80,7 @@
             android:id="@+id/textViewStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageViewRow"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:padding="4dp"
             android:text="Approval Status" />
