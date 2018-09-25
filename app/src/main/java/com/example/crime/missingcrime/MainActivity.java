@@ -126,45 +126,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_home:
-                Intent intentMapView = new Intent(this, MainActivity.class);
-                startActivity(intentMapView);
-                break;
-
-            case R.id.menu_add_crime:
-                addReport();
-                break;
-            case R.id.menu_my_report_list:
-                myReport();
-                break;
-            case R.id.menu_report_list:
-                reportList();
-                break;
-            case R.id.menu_approve:
-                Intent intentApprove = new Intent(this, ApproveActivity.class);
-                startActivity(intentApprove);
-                break;
-            case R.id.menu_contacts:
-                emergencyContact();
-                break;
-            case R.id.menu_logout:
-                if(isServicesOK()){
-                    signOut();
-                }
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
     public void cardView()
     {
         crimeGo=(CardView)findViewById(R.id.crimeGo);
